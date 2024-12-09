@@ -1,0 +1,14 @@
+<div class="search-bar-container">
+    <div class="search-bar">
+        <!-- Tags -->
+        <div class="tags">
+            <span class="tag" *ngFor="let tag of tags" [style.background-color]="tag.color"
+                [class.selected]="selectedTag === tag.name" (click)="toggleTag(tag.name)">
+                {{ tag.name }}
+            </span>
+        </div>
+        <!-- search bar -->
+        <input type="text" class="search-input" [(ngModel)]="searchTerm" (input)="searchTasks()"
+            placeholder="Rechercher des tâches..." />
+    </div>
+</div>

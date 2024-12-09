@@ -1,0 +1,17 @@
+<app-header></app-header>
+
+<div class="main-container">
+  <app-task-search (searchCriteria)="onSearch($event)"></app-task-search>
+
+  <div *ngIf="loading">Chargement des tâches...</div>
+  <div class="action-buttons">
+    <button class="round-button add-button" (click)="createTask()">
+      <i class="fas fa-plus"></i>
+    </button>
+    <button class="round-button delete-all-button" (click)="deleteAllTasks()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <app-task-list [tasks]="filteredTasks" [tagColors]="tagColors" (deleteTask)="deleteTaskFromList($event)"
+    (taskUpdated)="updateTaskInList($event)"></app-task-list>
+</div>

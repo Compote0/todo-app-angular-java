@@ -1,0 +1,133 @@
+.task-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+    &.expanded {
+        background-color: #f9f9f9;
+        padding: 1.5rem;
+    }
+
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .task-info {
+            h3 {
+                margin: 0;
+                font-size: 1.25rem;
+                color: #333;
+            }
+
+            .timestamp {
+                font-size: 0.875rem;
+                color: #999;
+            }
+        }
+
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .tag {
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+                font-size: 0.875rem;
+                color: #fff;
+                text-transform: capitalize;
+            }
+
+            .edit-btn {
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #007bff;
+
+                &:hover {
+                    color: #0056b3;
+                }
+            }
+
+            .delete-btn {
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #e74c3c; // Rouge pour suppression
+
+                &:hover {
+                    color: #c0392b;
+                }
+            }
+        }
+    }
+
+    .task-body {
+        margin-top: 1rem;
+
+        textarea {
+            width: 100%;
+            min-height: 50px;
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .edit-tags {
+            margin-top: 1rem;
+
+            label {
+                font-weight: bold;
+                margin-right: 0.5rem;
+            }
+
+            input {
+                width: 100%;
+                border: 1px solid #ddd;
+                padding: 0.5rem;
+                border-radius: 4px;
+            }
+        }
+
+        .action-buttons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+
+            button {
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1rem;
+
+                &.cancel-btn {
+                    background-color: #e0e0e0;
+                    color: #333;
+
+                    &:hover {
+                        background-color: #d6d6d6;
+                    }
+                }
+
+                &.save-btn {
+                    background-color: #007bff;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: #0056b3;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+<div class="task-list">
+    <app-task-card *ngFor="let task of tasks" [task]="task" [tagColors]="tagColors"
+        (taskDeleted)="handleDeleteTask($event)" (taskUpdated)="handleTaskUpdated($event)"></app-task-card>
+</div>

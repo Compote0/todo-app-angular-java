@@ -1,0 +1,50 @@
+<div class="task-card" [class.expanded]="expanded || isEditing" (click)="toggleExpand()">
+    <div class="task-header">
+        <div class="task-info">
+            <!-- Titre éditable -->
+            <h3 *ngIf="!isEditing; else editTitle">{{ task.title }}</h3>
+            <ng-template #editTitle>
+                <input [(ngModel)]="editableTask.title" type="text" />
+            </ng-template>
+
+            <span class="timestamp">{{ task.createdAt | date: 'short' }}</span>
+        </div>
+        <div class="task-actions">
+            <!-- Tag affiché (non éditable) -->
+            <span class="tag" [style.backgroundColor]="getTagColor(task.tag)">
+                {{ task.tag }}
+            </span>
+
+            <!-- Bouton d'édition -->
+            <button class="edit-btn" (click)="startEditing($event)">
+                <i class="fas fa-edit"></i>
+            </button>
+
+            <!-- Bouton de suppression -->
+            <button class="delete-btn" (click)="deleteTask()">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenu de la tâche -->
+    <div *ngIf="expanded || isEditing" class="task-body">
+        <!-- Description éditable -->
+        <p *ngIf="!isEditing; else editDescription">{{ task.description }}</p>
+        <ng-template #editDescription>
+            <textarea [(ngModel)]="editableTask.description"></textarea>
+        </ng-template>
+
+        <!-- Édition du tag -->
+        <div *ngIf="isEditing" class="edit-tags">
+            <label for="tags">Tag :</label>
+            <input [(ngModel)]="editableTask.tag" id="tags" type="text" />
+        </div>
+
+        <!-- Boutons "Annuler" et "Sauvegarder" -->
+        <div *ngIf="isEditing" class="action-buttons">
+            <button class="cancel-btn" (click)="cancelEditing()">Annuler</button>
+            <button class="save-btn" (click)="saveTask()">Sauvegarder</button>
+        </div>
+    </div>
+</div>

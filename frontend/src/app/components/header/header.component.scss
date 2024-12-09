@@ -1,0 +1,21 @@
+// Variables globales pour des couleurs réutilisables
+$header-bg: url('/image.png');
+$title-color: #ffffff;
+
+.header {
+    background-image: $header-bg;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+
+    .header-title {
+        color: $title-color;
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 0;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+}
