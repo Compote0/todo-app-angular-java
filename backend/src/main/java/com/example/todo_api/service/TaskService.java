@@ -46,10 +46,16 @@ public class TaskService {
                 .orElse(null);
 
         if (existingTask != null) {
-            existingTask.setTitle(updatedTask.getTitle());
-            existingTask.setDescription(updatedTask.getDescription());
-            existingTask.setTag(updatedTask.getTag());
-            existingTask.setCompleted(updatedTask.isCompleted());
+            if (updatedTask.getTitle() != null) {
+                existingTask.setTitle(updatedTask.getTitle());
+            }
+            if (updatedTask.getDescription() != null) {
+                existingTask.setDescription(updatedTask.getDescription());
+            }
+            if (updatedTask.getTag() != null) {
+                existingTask.setTag(updatedTask.getTag());
+            }
+            existingTask.setCompleted(updatedTask.isCompleted()); // Always update the completion status
             return existingTask;
         }
         return null;

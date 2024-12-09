@@ -12,12 +12,12 @@ import { TaskService } from '../../../services/task.service';
 })
 export class TaskSearchComponent implements OnInit {
     @Output() searchCriteria = new EventEmitter<{ term: string; tag: string | null }>();
-    @Output() tagColorsUpdated = new EventEmitter<Record<string, string>>(); // Ajouté
+    @Output() tagColorsUpdated = new EventEmitter<Record<string, string>>();
 
     searchTerm: string = '';
     selectedTag: string | null = null;
     tags: { name: string; color: string }[] = [];
-    tagColors: Record<string, string> = {}; // Centralisation des couleurs
+    tagColors: Record<string, string> = {};
 
     constructor(private taskService: TaskService) { }
 
@@ -35,7 +35,7 @@ export class TaskSearchComponent implements OnInit {
                 });
                 this.tagColorsUpdated.emit(this.tagColors);
             },
-            error: (err) => console.error('Erreur lors du chargement des tags', err),
+            error: (err) => console.error('Error when loading the tags', err),
         });
     }
 

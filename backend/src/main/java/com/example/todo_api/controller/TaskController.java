@@ -16,35 +16,35 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
-    // injecte le service pour accéder aux méthodes métiers
+    // inject service
     @Autowired
     private TaskService taskService;
 
-    // GET /api/tasks - retourne la liste de toutes les tâches
+    // GET /api/tasks - return all tasks
     @GetMapping
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
 
-    // POST /api/tasks - créer une nouvelle tâche
+    // POST /api/tasks - create new task
     @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }
 
-    // GET /api/tasks/{id} - retourne la tâche correspondant à l'ID
+    // GET /api/tasks/{id} - return task by id
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
 
-    // PUT /api/tasks/{id} - met à jour la tâche correspondant à l'ID
+    // PUT /api/tasks/{id} - update task by id
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task task) {
         return taskService.updateTask(id, task);
     }
 
-    // DELETE /api/tasks/{id} - supprime la tâche correspondant à l'ID
+    // DELETE /api/tasks/{id} - delete task by id
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
@@ -55,14 +55,14 @@ public class TaskController {
         taskService.deleteAllTasks();
     }
 
-    // GET /api/tasks/search?searchTerm={searchTerm} - recherche les tâches
-    // correspondant au terme de recherche
+    // GET /api/tasks/search?searchTerm={searchTerm} - search tasks by term
     @GetMapping("/search")
     public List<Task> searchTasks(@RequestParam String searchTerm) {
         return taskService.searchTasks(searchTerm);
     }
 
     // GET /api/tasks/searchByDate?start=2024-12-05T00:00:00&end=2024-12-06T23:59:59
+    // - search tasks by date
     @GetMapping("/searchByDate")
     public List<Task> searchTasksByDate(@RequestParam String start, @RequestParam String end) {
         try {
@@ -74,15 +74,14 @@ public class TaskController {
         }
     }
 
-    // GET/api/tasks/searchTasksByTag?tag={tag}- recherche les tâches correspondant
-    // au tag
+    // GET/api/tasks/searchTasksByTag?tag={tag}- search tasks by tag
     @GetMapping("/searchTasksByTag")
 
     public List<Task> searchTasksByTag(@RequestParam String tag) {
         return taskService.searchTasksByTag(tag);
     }
 
-    // GET /api/tasks/tags - retourne la liste des tags
+    // GET /api/tasks/tags - return all tags
     @GetMapping("/tags")
     public List<String> getTags() {
         return taskService.getTags();

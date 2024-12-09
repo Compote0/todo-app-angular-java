@@ -15,13 +15,31 @@ export class TaskCardComponent {
     @Input() task: any;
     @Input() tagColors: Record<string, string> = {};
     @Output() taskUpdated = new EventEmitter<any>();
-    @Output() taskDeleted = new EventEmitter<number>();
+    @Output() deleteTask = new EventEmitter<number>();
+    @Output() deleteTaskRequested = new EventEmitter<any>();
 
     expanded: boolean = false;
     isEditing: boolean = false;
     editableTask: any = {};
 
     constructor(private taskService: TaskService) { }
+
+    toggleTaskCompletion(event: Event) {
+        event.stopPropagation();
+        const updatedTask = { ...this.task, completed: !this.task.completed };
+        this.taskService.updateTask(updatedTask.id, updatedTask).subscribe({
+            next: (updatedTaskFromBackend) => {
+                this.task = updatedTaskFromBackend;
+                this.taskUpdated.emit(updatedTaskFromBackend);
+            },
+            error: (err) => console.error('Error updating task completion:', err),
+        });
+    }
+
+    requestTaskDeletion(event: Event) {
+        event.stopPropagation();
+        this.deleteTaskRequested.emit(this.task);
+    }
 
     toggleExpand() {
         this.expanded = !this.expanded;
@@ -44,16 +62,7 @@ export class TaskCardComponent {
                 this.taskUpdated.emit(updatedTask);
                 this.isEditing = false;
             },
-            error: (err) => console.error('Erreur lors de la sauvegarde de la tâche', err),
-        });
-    }
-
-    deleteTask() {
-        this.taskService.deleteTask(this.task.id).subscribe({
-            next: () => {
-                this.taskDeleted.emit(this.task.id);
-            },
-            error: (err) => console.error('Erreur lors de la suppression de la tâche', err),
+            error: (err) => console.error('Error saving task:', err),
         });
     }
 

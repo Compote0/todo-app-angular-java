@@ -16,23 +16,16 @@ export class TaskListComponent implements OnInit {
     @Input() tagColors: Record<string, string> = {};
     @Output() deleteTask = new EventEmitter<number>();
     @Output() taskUpdated = new EventEmitter<any>();
+    @Output() deleteTaskRequested = new EventEmitter<any>();
 
     constructor(private taskService: TaskService) { }
 
     ngOnInit() { }
 
-    /**
-     * Gestion de la suppression d'une tâche.
-     * Émet un événement vers le parent pour gérer la suppression.
-     */
     handleDeleteTask(taskId: number) {
         this.deleteTask.emit(taskId);
     }
 
-    /**
-     * Gestion de la mise à jour d'une tâche.
-     * Émet un événement vers le parent pour actualiser la tâche.
-     */
     handleTaskUpdated(updatedTask: any) {
         this.taskUpdated.emit(updatedTask);
     }

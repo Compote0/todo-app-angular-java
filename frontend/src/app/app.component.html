@@ -3,15 +3,64 @@
 <div class="main-container">
   <app-task-search (searchCriteria)="onSearch($event)"></app-task-search>
 
-  <div *ngIf="loading">Chargement des tâches...</div>
   <div class="action-buttons">
-    <button class="round-button add-button" (click)="createTask()">
+    <button class="round-button add-button" (click)="toggleCreateModal()">
       <i class="fas fa-plus"></i>
     </button>
-    <button class="round-button delete-all-button" (click)="deleteAllTasks()">
+    <button class="round-button delete-all-button" (click)="toggleDeleteAllModal()">
       <i class="fas fa-times"></i>
     </button>
   </div>
-  <app-task-list [tasks]="filteredTasks" [tagColors]="tagColors" (deleteTask)="deleteTaskFromList($event)"
-    (taskUpdated)="updateTaskInList($event)"></app-task-list>
+
+  <div *ngIf="loading">Loading tasks...</div>
+
+  <app-task-list [tasks]="filteredTasks" [tagColors]="tagColors" (deleteTaskRequested)="toggleDeleteTaskModal($event)"
+    (deleteTask)="deleteTaskFromList($event)">
+  </app-task-list>
+
+  <!-- Create Task Modal -->
+  <div class="modal" [ngClass]="{ show: showCreateModal }">
+    <div class="modal-content">
+      <h2>Create Task</h2>
+      <form (ngSubmit)="createTaskFromModal()">
+        <label for="title">Title:</label>
+        <input id="title" [(ngModel)]="newTask.title" name="title" type="text" required />
+
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="newTask.description" name="description"></textarea>
+
+        <label for="tag">Tag:</label>
+        <input id="tag" [(ngModel)]="newTask.tag" name="tag" type="text" required />
+
+        <div class="modal-actions">
+          <button type="button" class="cancel-btn" (click)="toggleCreateModal()">Cancel</button>
+          <button type="submit" class="create-btn">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete All Tasks Modal -->
+  <div class="modal" [ngClass]="{ show: showDeleteAllModal }">
+    <div class="modal-content">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete all tasks?</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="toggleDeleteAllModal()">Cancel</button>
+        <button class="confirm-btn" (click)="confirmDeleteAll()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Single Task Modal -->
+  <div class="modal" [ngClass]="{ show: showDeleteTaskModal }">
+    <div class="modal-content">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete this task?</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="toggleDeleteTaskModal()">Cancel</button>
+        <button class="confirm-btn" (click)="confirmDeleteTask()">Confirm</button>
+      </div>
+    </div>
+  </div>
 </div>
